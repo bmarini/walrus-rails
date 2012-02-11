@@ -23,7 +23,8 @@ module Sprockets
       <<-JST
 (function() {
 #{namespace} || (#{namespace} = {});
-#{namespace}[#{scope.logical_path.inspect}] = #{wrap_in_walrus_parser(data)};
+var parsed = Walrus.Parser.parse('#{escaped_javascript(data)}');
+#{namespace}[#{scope.logical_path.inspect}] = function(obj) { return parsed.compile(obj) };
 }).call(this);
       JST
     end
@@ -35,8 +36,8 @@ module Sprockets
       extend self
     end
 
-    def wrap_in_walrus_parser(source)
-      "Walrus.Parser.parse('%s')" % JSHelper.escape_javascript(source)
+    def escaped_javascript(source)
+      JSHelper.escape_javascript(source)
     end
   end
 

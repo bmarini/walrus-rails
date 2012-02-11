@@ -8,7 +8,7 @@ Write files named `app/assets/javascripts/templates/tmpl.js.wal`
 and use them client-side like this:
 
 ``` javascript
-window.walrus_templates["templates/tmpl"].compile(obj)
+window.walrus_templates["templates/tmpl"](obj)
 ```
 
 ## Installation
